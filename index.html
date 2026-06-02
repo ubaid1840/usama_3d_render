@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N0Render SMART BOX - NEXT GENERATION SMART BOX</title>
+    <meta name="description"
+        content="A next-generation smart box designed for smooth streaming, gaming, media playback, and advanced connectivity.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="particles" id="particles"></div>
+
+    <nav class="navbar">
+        <a href="#home" class="logo-link">
+            <img src="logo.png" alt="N0Render Logo" class="logo-image">
+        </a>
+        <div class="nav-center-text">WELCOME TO THE FUTURE</div>
+        <ul class="nav-links" style="align-items: center;">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#description">Product</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#support">Support</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="checkout.html" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.85rem; margin-left: 0.5rem; color: white;">BUY NOW</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="glow-text"><span class="n0render-brand">N0Render</span> smart box</h1>
+                <h2>Smart Entertainment. Powerful Performance.</h2>
+                <p>A next-generation smart box designed for smooth streaming, gaming, media playback, and advanced
+                    connectivity.</p>
+                <div class="cta-group">
+                    <a href="#features" class="btn btn-primary">Explore Features</a>
+                    <a href="checkout.html" class="btn btn-secondary">Buy Now</a>
+                </div>
+            </div>
+            <div class="hero-showcase" id="spline-container">
+                <!-- Glowing product showcase area / Flexible for Spline 3D element -->
+                <div class="glow-sphere"></div>
+                <!-- Spline 3D Element Area -->
+                <canvas id="canvas3d" class="spline-canvas"></canvas>
+            </div>
+        </section>
+
+        <!-- Product Description Section -->
+        <section id="description" class="product-description">
+            <h2 class="section-title">Designed for Modern Entertainment</h2>
+            <div class="description-grid">
+                <div class="description-text">
+                    <div class="feature-card glass">
+                        <i class="ri-rocket-line"></i>
+                        <h3>Ultra-fast performance (4 GB RAM / 64 GB ROM)</h3>
+                    </div>
+                    <div class="feature-card glass">
+                        <i class="ri-tv-2-line"></i>
+                        <h3>4K media support</h3>
+                    </div>
+                    <div class="feature-card glass">
+                        <i class="ri-wifi-line"></i>
+                        <h3>Smart connectivity</h3>
+                    </div>
+                    <div class="feature-card glass">
+                        <i class="ri-gamepad-line"></i>
+                        <h3>Retro Gaming Ready</h3>
+                    </div>
+                    <div class="feature-card glass">
+                        <i class="ri-layout-3-line"></i>
+                        <h3>Compact premium design</h3>
+                    </div>
+                    <div class="feature-card glass">
+                        <i class="ri-settings-4-line"></i>
+                        <h3>Easy setup</h3>
+                    </div>
+                </div>
+                <div class="description-image">
+                    <div class="sleek-mockup glass glow-container">
+                        <div class="neon-glow"></div>
+                        <img src="mockup.png" alt="n0render Mockup" class="mockup-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="features">
+            <h2 class="section-title">Core Features</h2>
+            <div class="features-grid">
+                <div class="feature-item glass">
+                    <i class="ri-cpu-line"></i>
+                    <h3>Powerful hardware</h3>
+                    <p>Next-gen processor for seamless multitasking.</p>
+                </div>
+                <div class="feature-item glass">
+                    <i class="ri-magic-line"></i>
+                    <h3>Smooth user experience</h3>
+                    <p>Fluid UI with zero lag or stuttering.</p>
+                </div>
+                <div class="feature-item glass">
+                    <i class="ri-base-station-line"></i>
+                    <h3>Fast wireless connectivity</h3>
+                    <p>Wi-Fi 6 and Bluetooth 5.2 enabled.</p>
+                </div>
+                <div class="feature-item glass">
+                    <i class="ri-hard-drive-2-line"></i>
+                    <h3>Expandable storage</h3>
+                    <p>add your own sd card</p>
+                </div>
+                <div class="feature-item glass">
+                    <i class="ri-snowy-line"></i>
+                    <h3>Modern cooling system</h3>
+                    <p>Whisper-quiet thermals for sustained loads.</p>
+                </div>
+                <div class="feature-item glass">
+                    <i class="ri-leaf-line"></i>
+                    <h3>Energy efficient</h3>
+                    <p>Eco-friendly power consumption mode.</p>
+                </div>
+                <div class="feature-item glass">
+                    <i class="ri-tv-line"></i>
+                    <h3>IP TV Experience</h3>
+                    <p>Seamlessly stream live TV and on-demand content.</p>
+                </div>
+                <div class="feature-item glass">
+                    <i class="ri-radio-line"></i>
+                    <h3>Built in TV Radio</h3>
+                    <p>Listen to your favorite stations directly from the box.</p>
+                </div>
+                <div class="feature-item glass">
+                    <i class="ri-graduation-cap-line"></i>
+                    <h3>E-Learning</h3>
+                    <p>Access educational platforms and interactive courses.</p>
+                </div>
+                <div class="feature-item glass">
+                    <i class="ri-heart-pulse-line"></i>
+                    <h3>Workout and Weight loss training</h3>
+                    <p>Follow fitness routines and stay healthy at home.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials">
+            <h2 class="section-title">Reviews From Customers</h2>
+            <div class="testimonial-container">
+                <div class="testimonial-deck" id="testimonial-deck">
+                    <!-- Cards will be injected by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Tech Support Section -->
+        <section id="support" class="support">
+            <h2 class="section-title">Technical Support</h2>
+            <div class="support-container">
+                <div class="support-links glass">
+                    <ul>
+                        <li><i class="ri-tools-line"></i> Troubleshooting support</li>
+                        <li><i class="ri-download-cloud-2-line"></i> Firmware assistance</li>
+                        <li><i class="ri-book-read-line"></i> Device setup guidance</li>
+                        <li><i class="ri-refresh-line"></i> Software updates</li>
+                        <li><i class="ri-customer-service-2-line"></i> Customer help center</li>
+                    </ul>
+                </div>
+                <div class="support-card glass highlight">
+                    <h3>Contact Support Team</h3>
+                    <div class="contact-methods">
+                        <div class="method">
+                            <i class="ri-mail-send-line"></i>
+                            <span><span style="text-transform: lowercase;">tech@n0render.com</span></span>
+                        </div>
+                        <div class="method">
+                            <i class="ri-time-line"></i>
+                            <span>10am to 8pm Central Time</span>
+                        </div>
+                        <div class="method">
+                            <i class="ri-phone-line"></i>
+                            <span>+1 612 642 2780 Ext 802</span>
+                        </div>
+                    </div>
+                    <div class="response-time">
+                        <div class="pulse-dot"></div>
+                        <span>Avg. response time: &lt; 30 minutes</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-wrapper">
+                <form class="contact-form glass">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" placeholder="How can we help you?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary submit-btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>ABOUT US</h3>
+                <p>Our goal is to provide you with the most professional, affordable, convenient hardware and/or
+                    software solution.</p>
+            </div>
+            <div class="footer-right">
+                <div class="social-icons">
+                    <a href="#"><i class="ri-youtube-fill"></i></a>
+                    <a href="#"><i class="ri-facebook-circle-fill"></i></a>
+                    <a href="#"><i class="ri-instagram-line"></i></a>
+                </div>
+                <p>© 2026 <span class="n0render-brand">N0Render</span> smart box. All rights reserved.</p>
+                <div class="footer-links" style="align-items: center;">
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="checkout.html" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.85rem; margin-left: 1rem; color: white;">BUY NOW</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Spline 3D Runtime Integration -->
+    <script type="module">
+        import { Application } from 'https://esm.sh/@splinetool/runtime';
+
+        const canvas = document.getElementById('canvas3d');
+        const spline = new Application(canvas);
+
+        // Add your Spline scene URL below
+        spline.load('https://prod.spline.design/00aC1k5ZycTSh4gR/scene.splinecode')
+            .then(() => {
+                console.log('✅ Spline 3D scene loaded successfully!');
+                canvas.classList.add('loaded');
+            })
+            .catch(err => {
+                console.warn('Spline 3D scene failed to load. Ensure you have replaced YOUR_SCENE_ID with your actual Spline export URL.');
+            });
+    </script>
+</body>
+
+</html>

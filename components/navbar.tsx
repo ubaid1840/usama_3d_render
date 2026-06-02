@@ -10,9 +10,9 @@ export function Navbar({ centerText = "WELCOME TO THE FUTURE", showFullNav = tru
   return (
     <nav className="navbar">
       <Link href="/" className="logo-link">
-        <Image src="/logo.png" alt="N0Render Logo" width={70} height={70} className="logo-image" />
+        <img src="/logo.png" alt="N0Render Logo" className="logo-image" style={{objectFit:'contain',width:'auto', height:'80px', }} />
       </Link>
-      <div className="nav-center-text">{centerText}</div>
+     
       <ul className="nav-links">
         {showFullNav ? (
           <>

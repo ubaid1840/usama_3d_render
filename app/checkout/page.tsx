@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Particles } from "@/components/particles"
+import { PaymentButton } from "@/components/payment-button"
 
 export const metadata: Metadata = {
   title: "Buy Now - N0Render SMART BOX",
@@ -71,9 +72,7 @@ export default function CheckoutPage() {
             </p>
           </div>
           <div className="cta-group" style={{ justifyContent: "center" }}>
-            <button className="btn btn-primary" style={{ fontSize: "1.5rem", padding: "1rem 3rem" }}>
-              PROCEED TO PAYMENT
-            </button>
+            <PaymentButton />
           </div>
         </section>
       </main>

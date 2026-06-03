@@ -1,9 +1,9 @@
 'use client'
 
-import { StripePaymentProvider } from '@/components/stripe-payment-form'
-import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
+import { Navbar } from '@/components/navbar'
 import { Particles } from '@/components/particles'
+import { StripePaymentProvider } from '@/components/stripe-payment-form'
 
 export default function PaymentPage() {
   return (

@@ -1,13 +1,13 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { db } from '@/lib/firebase'
 import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-import { db } from '@/lib/firebase'
-import ReCAPTCHA from "react-google-recaptcha";
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import ReCAPTCHA from "react-google-recaptcha"
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 
 
 
@@ -27,7 +27,7 @@ type FormData = {
 }
 
 function PaymentForm() {
-   const [captchaToken, setCaptchaToken] = useState("")
+  const [captchaToken, setCaptchaToken] = useState("")
   const { executeRecaptcha } = useGoogleReCaptcha();
   const stripe = useStripe()
   const elements = useElements()
@@ -57,11 +57,11 @@ function PaymentForm() {
     setError('')
 
     if (!executeRecaptcha) {
-  setError("Captcha not ready");
-  return;
-}
+      setError("Captcha not ready");
+      return;
+    }
 
-const captchaToken = await executeRecaptcha("payment");
+    const captchaToken = await executeRecaptcha("payment");
 
     if (!stripe || !elements) {
       setError('Payment system not initialized')
@@ -81,7 +81,7 @@ const captchaToken = await executeRecaptcha("payment");
       const intentRes = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({...form, captchaToken}),
+        body: JSON.stringify({ ...form, captchaToken }),
       })
 
       const intentData = await intentRes.json()
@@ -137,24 +137,24 @@ const captchaToken = await executeRecaptcha("payment");
         console.log(`[Payment] Country: ${form.country}`)
         console.log(`[Payment] Intent ID: ${paymentIntent.id}`)
 
-         const orderData = {
-    paymentIntentId: paymentIntent.id,
-    customerInfo: form,
-    amount: paymentIntent.amount / 100,
-    currency: paymentIntent.currency,
-    paymentStatus: paymentIntent.status,
-    orderStatus: 'order placed',
-    deliveryStatus: 'pending',
-    productName: 'N0Render Smart Box',
-    createdAt: serverTimestamp(),
-  }
+        const orderData = {
+          paymentIntentId: paymentIntent.id,
+          customerInfo: form,
+          amount: paymentIntent.amount / 100,
+          currency: paymentIntent.currency,
+          paymentStatus: paymentIntent.status,
+          orderStatus: 'order placed',
+          deliveryStatus: 'pending',
+          productName: 'N0Render Smart Box',
+          createdAt: serverTimestamp(),
+        }
 
-  const orderRef = await addDoc(collection(db, 'orders'), orderData)
+        const orderRef = await addDoc(collection(db, 'orders'), orderData)
 
-  console.log('[Firebase Order Created]', {
-    orderId: orderRef.id,
-    ...orderData,
-  })
+        console.log('[Firebase Order Created]', {
+          orderId: orderRef.id,
+          ...orderData,
+        })
 
 
         // await fetch('/api/payment', {
@@ -175,22 +175,22 @@ const captchaToken = await executeRecaptcha("payment");
     }
   }
 
-   function onSuccess(token: string) {
+  function onSuccess(token: string) {
     setCaptchaToken(token)
   }
 
   const validateForm = () => {
-  return (
-    form.name.trim() !== '' &&
-    form.email.trim() !== '' &&
-    form.phone.trim() !== '' &&
-    form.address.trim() !== '' &&
-    form.city.trim() !== '' &&
-    form.state.trim() !== '' &&
-    form.postalCode.trim() !== '' &&
-    form.country.trim() !== ''
-  )
-}
+    return (
+      form.name.trim() !== '' &&
+      form.email.trim() !== '' &&
+      form.phone.trim() !== '' &&
+      form.address.trim() !== '' &&
+      form.city.trim() !== '' &&
+      form.state.trim() !== '' &&
+      form.postalCode.trim() !== '' &&
+      form.country.trim() !== ''
+    )
+  }
 
   return (
     <div className="stripeCheckout">
@@ -375,10 +375,10 @@ const captchaToken = await executeRecaptcha("payment");
           </div>
         )}
 
-         <ReCAPTCHA
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                onChange={onSuccess}
-              />
+        <ReCAPTCHA
+          sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+          onChange={onSuccess}
+        />
 
         <button
           type="submit"

@@ -1,14 +1,14 @@
 "use client"
 
-import Image from "next/image"
-import Link from "next/link"
-import { Navbar } from "@/components/navbar"
+import { ContactForm } from "@/components/contact-form"
 import { Footer } from "@/components/footer"
+import { Navbar } from "@/components/navbar"
 import { Particles } from "@/components/particles"
 import { SplineScene } from "@/components/spline-scene"
 import { TestimonialDeck } from "@/components/testimonial-deck"
-import { ContactForm } from "@/components/contact-form"
-import { useGlassEffect, useFadeInOnScroll } from "@/hooks/use-effects"
+import { useFadeInOnScroll, useGlassEffect } from "@/hooks/use-effects"
+import Image from "next/image"
+import Link from "next/link"
 
 export default function HomePage() {
   const glassRef = useGlassEffect<HTMLElement>()

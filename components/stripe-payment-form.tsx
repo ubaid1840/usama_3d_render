@@ -142,26 +142,27 @@ function PaymentForm() {
   }
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-2xl p-8 md:p-12 border border-slate-700">
+    <div className="w-full max-w-3xl mx-auto px-4 py-8">
+      <div className="bg-white rounded-xl shadow-lg p-8 md:p-10">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Secure Payment</h1>
-          <p className="text-slate-400">N0Render Smart Box</p>
-          <div className="mt-4 flex items-baseline gap-1">
-            <span className="text-5xl font-bold text-blue-400">$125</span>
-            <span className="text-slate-400">.00</span>
+        <div className="mb-8 border-b pb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h1 className="text-3xl font-bold text-gray-900">Secure Checkout</h1>
+            <div className="flex items-baseline">
+              <span className="text-4xl font-bold text-blue-600">$125</span>
+              <span className="text-gray-500 ml-1">.00 USD</span>
+            </div>
           </div>
+          <p className="text-gray-600">N0Render Smart Box</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Personal Information Section */}
-          <div className="space-y-4">
-            <h2 className="text-lg font-semibold text-white">Contact Information</h2>
-
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Contact Information */}
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Full Name *
                 </label>
                 <input
@@ -171,13 +172,13 @@ function PaymentForm() {
                   onChange={handleChange}
                   placeholder="John Doe"
                   disabled={loading}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Email *
                 </label>
                 <input
@@ -187,15 +188,15 @@ function PaymentForm() {
                   onChange={handleChange}
                   placeholder="john@example.com"
                   disabled={loading}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
                   required
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">
-                Phone
+            <div className="mt-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Phone Number
               </label>
               <input
                 type="tel"
@@ -204,18 +205,18 @@ function PaymentForm() {
                 onChange={handleChange}
                 placeholder="+1 (555) 000-0000"
                 disabled={loading}
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
               />
             </div>
           </div>
 
-          {/* Billing Address Section */}
-          <div className="space-y-4 pt-4 border-t border-slate-700">
-            <h2 className="text-lg font-semibold text-white">Billing Address</h2>
+          {/* Billing Address */}
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Billing Address</h2>
 
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">
-                Address *
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Street Address *
               </label>
               <input
                 type="text"
@@ -224,14 +225,14 @@ function PaymentForm() {
                 onChange={handleChange}
                 placeholder="123 Main Street"
                 disabled={loading}
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 transition"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
                 required
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   City *
                 </label>
                 <input
@@ -241,14 +242,14 @@ function PaymentForm() {
                   onChange={handleChange}
                   placeholder="New York"
                   disabled={loading}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
-                  State *
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  State / Province *
                 </label>
                 <input
                   type="text"
@@ -257,15 +258,15 @@ function PaymentForm() {
                   onChange={handleChange}
                   placeholder="NY"
                   disabled={loading}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
                   required
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Postal Code *
                 </label>
                 <input
@@ -275,13 +276,13 @@ function PaymentForm() {
                   onChange={handleChange}
                   placeholder="10001"
                   disabled={loading}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Country *
                 </label>
                 <select
@@ -289,7 +290,7 @@ function PaymentForm() {
                   value={form.country}
                   onChange={handleChange}
                   disabled={loading}
-                  className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
                   required
                 >
                   <option value="US">United States</option>
@@ -305,19 +306,19 @@ function PaymentForm() {
             </div>
           </div>
 
-          {/* Card Section */}
-          <div className="space-y-4 pt-4 border-t border-slate-700">
-            <h2 className="text-lg font-semibold text-white">Card Information</h2>
-
-            <div className="p-4 bg-slate-800 border border-slate-600 rounded-lg">
+          {/* Payment Method */}
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Payment Method</h2>
+            <div className="p-4 border border-gray-300 rounded-lg bg-gray-50">
               <CardElement
                 options={{
                   style: {
                     base: {
                       fontSize: '16px',
-                      color: '#e2e8f0',
+                      color: '#1f2937',
+                      fontFamily: 'system-ui, -apple-system, sans-serif',
                       '::placeholder': {
-                        color: '#94a3b8',
+                        color: '#9ca3af',
                       },
                     },
                     invalid: {
@@ -327,12 +328,15 @@ function PaymentForm() {
                 }}
               />
             </div>
+            <p className="text-xs text-gray-500 mt-2">
+              Secure card processing by Stripe
+            </p>
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="p-4 bg-red-900/30 border border-red-700 rounded-lg">
-              <p className="text-red-300 text-sm">{error}</p>
+            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-red-700 text-sm font-medium">{error}</p>
             </div>
           )}
 
@@ -340,7 +344,7 @@ function PaymentForm() {
           <button
             type="submit"
             disabled={loading || !stripe || !elements}
-            className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-600 disabled:to-slate-600 text-white font-bold py-4 px-6 rounded-lg transition duration-200 text-lg flex items-center justify-center gap-2 shadow-lg"
+            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 text-lg flex items-center justify-center gap-2 shadow-md"
           >
             {loading ? (
               <>
@@ -348,13 +352,13 @@ function PaymentForm() {
                 Processing Payment...
               </>
             ) : (
-              `Pay $125.00`
+              'Pay $125.00'
             )}
           </button>
 
           {/* Security Note */}
-          <p className="text-xs text-slate-400 text-center">
-            🔒 Your payment is secure and encrypted. Card details are processed directly by Stripe.
+          <p className="text-xs text-gray-500 text-center mt-6">
+            Your payment information is secure and encrypted. We never store your card details.
           </p>
         </form>
       </div>
@@ -369,3 +373,4 @@ export function StripePaymentProvider() {
     </Elements>
   )
 }
+

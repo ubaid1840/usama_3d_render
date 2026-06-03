@@ -3,6 +3,30 @@
 import { stripe } from '@/lib/stripe'
 import { PRODUCTS } from '@/lib/products'
 
+export async function createPaymentIntent() {
+  const product = PRODUCTS.find((p) => p.id === 'n0render-smart-box')
+  if (!product) {
+    throw new Error('Product not found')
+  }
+
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: product.priceInCents,
+      currency: 'usd',
+      payment_method_types: ['card'],
+      metadata: {
+        productId: product.id,
+        productName: product.name,
+      },
+    })
+
+    return { clientSecret: paymentIntent.client_secret }
+  } catch (error) {
+    console.error('Error creating payment intent:', error)
+    throw error
+  }
+}
+
 export async function createCheckoutSession(productId: string, userData: {
   name: string
   email: string
@@ -47,3 +71,4 @@ export async function createCheckoutSession(productId: string, userData: {
     throw error
   }
 }
+

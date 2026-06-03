@@ -11,12 +11,15 @@ export default function PaymentPage() {
       <Particles />
       <Navbar centerText="PAYMENT" showFullNav={false} />
 
-      <main className="min-h-screen flex items-center justify-center py-12 px-4">
-        <StripePaymentProvider />
+      <main className="paymentPage">
+        <section className="paymentHero">
+          <div className="paymentFormCard">
+            <StripePaymentProvider />
+          </div>
+        </section>
       </main>
 
       <Footer minimal />
     </>
   )
 }
-

@@ -1064,39 +1064,334 @@ footer {
   }
 }
 
-.payment-box {
-  max-width: 520px;
-  margin: 60px auto;
-  padding: 28px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  font-family: Arial, sans-serif;
+
+* {
+  box-sizing: border-box;
 }
 
-.payment-box h1 {
-  margin-bottom: 10px;
+.paymentPage {
+  min-height: 100vh;
+  padding: 105px 18px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
 }
 
-.payment-box input {
+.paymentHero {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  max-width: 880px;
 }
 
-.payment-box button {
+.paymentFormCard {
   width: 100%;
-  padding: 13px;
-  margin-top: 16px;
-  border: none;
-  border-radius: 8px;
-  background: #111;
-  color: white;
-  cursor: pointer;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 18px 55px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+}
+
+.stripeCheckout {
+  width: 100%;
+  background: #ffffff;
+  color: #111827;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.stripeCheckoutHeader {
+  padding: 24px 28px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  background: transparent;
+}
+
+.stripeCheckoutLabel {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 5px 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  color: #6b7280;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stripeCheckoutHeader h2 {
+  margin: 0;
+  color: #111827;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.4px;
+}
+
+.stripeCheckoutHeader p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.stripeCheckoutAmount {
+  flex-shrink: 0;
+  min-width: 135px;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: transparent;
+  color: #111827;
+  text-align: right;
+  box-shadow: none;
+}
+
+.stripeCheckoutAmount strong {
+  color: #111827;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.stripeCheckoutAmount span {
+  color: #6b7280;
+  font-size: 12px;
+  margin-left: 2px;
+}
+
+.stripeCheckoutForm {
+  padding: 26px 28px 28px;
+}
+
+.stripeSection {
+  padding: 18px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.stripeSection:first-child {
+  padding-top: 0;
+}
+
+.stripeSection:last-of-type {
+  border-bottom: none;
+  padding-bottom: 8px;
+}
+
+.stripeSectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.stripeSectionHeader span {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+  background: transparent;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.stripeSectionHeader h3 {
+  margin: 0;
+  color: #111827;
   font-size: 16px;
+  font-weight: 700;
 }
 
-.payment-box button:disabled {
-  opacity: 0.6;
+.stripeGrid {
+  display: grid;
+  gap: 14px;
+  width: 100%;
+}
+
+.stripeGridTwo {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.stripeField {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.stripeField:last-child {
+  margin-bottom: 0;
+}
+
+.stripeField label {
+  display: block;
+  margin-bottom: 7px;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stripeField input,
+.stripeField select {
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  padding: 0 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 11px;
+  background: transparent;
+  color: #111827;
+  font-size: 14px;
+  outline: none;
+  appearance: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.stripeField select {
+  background-image: linear-gradient(45deg, transparent 50%, #6b7280 50%),
+    linear-gradient(135deg, #6b7280 50%, transparent 50%);
+  background-position: calc(100% - 18px) 19px, calc(100% - 13px) 19px;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 34px;
+}
+
+.stripeField input::placeholder {
+  color: #9ca3af;
+}
+
+.stripeField input:focus,
+.stripeField select:focus {
+  border-color: #6b7280;
+  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.12);
+}
+
+.stripeField input:disabled,
+.stripeField select:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.stripeCardElement {
+  width: 100%;
+  padding: 15px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 11px;
+  background: transparent;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.stripeCardElement:focus-within {
+  border-color: #6b7280;
+  box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.12);
+}
+
+.stripeSecurityText {
+  margin: 9px 0 0;
+  color: #6b7280;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.stripeError {
+  margin-top: 18px;
+  padding: 12px 14px;
+  border: 1px solid #fecaca;
+  border-radius: 11px;
+  background: #fff;
+  color: #b91c1c;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stripeSubmitButton {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 22px;
+  border: none;
+  border-radius: 12px;
+  background: #111827;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(17, 24, 39, 0.16);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.stripeSubmitButton:hover:not(:disabled) {
+  background: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px rgba(17, 24, 39, 0.2);
+}
+
+.stripeSubmitButton:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.stripeSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: stripeSpin 0.8s linear infinite;
+}
+
+@keyframes stripeSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 760px) {
+  .paymentPage {
+    padding: 95px 14px 38px;
+  }
+
+  .paymentHero {
+    max-width: 100%;
+  }
+
+  .stripeCheckoutHeader {
+    padding: 22px 20px;
+    flex-direction: column;
+  }
+
+  .stripeCheckoutAmount {
+    width: 100%;
+    text-align: left;
+  }
+
+  .stripeCheckoutForm {
+    padding: 22px 20px 24px;
+  }
+
+  .stripeGridTwo {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .stripeCheckoutHeader h2 {
+    font-size: 22px;
+  }
+
+  .stripeCheckoutAmount strong {
+    font-size: 26px;
+  }
+
+  .stripeCheckoutForm {
+    padding: 20px 16px 22px;
+  }
 }

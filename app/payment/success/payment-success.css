@@ -1,0 +1,217 @@
+/* app/payment/success/payment-success.css */
+
+* {
+  box-sizing: border-box;
+}
+
+.successPage {
+  min-height: 100vh;
+  padding: 105px 18px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.successCard {
+  width: 100%;
+  max-width: 780px;
+  padding: 34px;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: 0 18px 55px rgba(15, 23, 42, 0.08);
+  color: #111827;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.successHeader,
+.successState {
+  text-align: center;
+}
+
+.successState {
+  padding: 42px 10px;
+}
+
+.successIcon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 16px;
+  border: 1px solid #d1fae5;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.errorIcon {
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+.successLabel {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 5px 11px;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  color: #6b7280;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.successHeader h1,
+.successState h1 {
+  margin: 0;
+  color: #111827;
+  font-size: 30px;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+.successHeader p,
+.successState p {
+  max-width: 480px;
+  margin: 10px auto 0;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.successDetails {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.successDetailBox {
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+
+.successDetailBox span,
+.successRow span,
+.successAddress span {
+  display: block;
+  margin-bottom: 6px;
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.successDetailBox strong {
+  color: #111827;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.successSection {
+  margin-top: 18px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+}
+
+.successSection h2 {
+  margin: 0 0 16px;
+  color: #111827;
+  font-size: 17px;
+}
+
+.successInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.successRow strong,
+.successAddress strong {
+  display: block;
+  color: #111827;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.successAddress {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.successSecurityText {
+  margin: 18px 0 0;
+  color: #6b7280;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.successButton {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 22px;
+  border-radius: 12px;
+  background: #111827;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 28px rgba(17, 24, 39, 0.16);
+  transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.successButton:hover {
+  background: #000000;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 34px rgba(17, 24, 39, 0.2);
+}
+
+.successSpinner {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 18px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #111827;
+  border-radius: 50%;
+  animation: successSpin 0.8s linear infinite;
+}
+
+@keyframes successSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 680px) {
+  .successPage {
+    padding: 95px 14px 38px;
+  }
+
+  .successCard {
+    padding: 24px 18px;
+    border-radius: 20px;
+  }
+
+  .successDetails,
+  .successInfoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .successHeader h1,
+  .successState h1 {
+    font-size: 26px;
+  }
+}

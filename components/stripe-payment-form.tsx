@@ -4,6 +4,11 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { CardElement, Elements, useElements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { db } from '@/lib/firebase'
+
+
 
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || ''
@@ -21,6 +26,7 @@ type FormData = {
 }
 
 function PaymentForm() {
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const stripe = useStripe()
   const elements = useElements()
   const router = useRouter()
@@ -48,6 +54,13 @@ function PaymentForm() {
     e.preventDefault()
     setError('')
 
+    if (!executeRecaptcha) {
+  setError("Captcha not ready");
+  return;
+}
+
+const captchaToken = await executeRecaptcha("payment");
+
     if (!stripe || !elements) {
       setError('Payment system not initialized')
       return
@@ -66,7 +79,7 @@ function PaymentForm() {
       const intentRes = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({...form, captchaToken}),
       })
 
       const intentData = await intentRes.json()
@@ -122,15 +135,34 @@ function PaymentForm() {
         console.log(`[Payment] Country: ${form.country}`)
         console.log(`[Payment] Intent ID: ${paymentIntent.id}`)
 
-        // Send to backend
-        await fetch('/api/payment', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            paymentIntentId: paymentIntent.id,
-            customerInfo: form,
-          }),
-        })
+         const orderData = {
+    paymentIntentId: paymentIntent.id,
+    customerInfo: form,
+    amount: paymentIntent.amount / 100,
+    currency: paymentIntent.currency,
+    paymentStatus: paymentIntent.status,
+    orderStatus: 'order placed',
+    deliveryStatus: 'pending',
+    productName: 'N0Render Smart Box',
+    createdAt: serverTimestamp(),
+  }
+
+  const orderRef = await addDoc(collection(db, 'orders'), orderData)
+
+  console.log('[Firebase Order Created]', {
+    orderId: orderRef.id,
+    ...orderData,
+  })
+
+
+        // await fetch('/api/payment', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({
+        //     paymentIntentId: paymentIntent.id,
+        //     customerInfo: form,
+        //   }),
+        // })
 
         // Redirect to success
         router.push(`/payment/success?payment_intent_id=${paymentIntent.id}`)
@@ -142,226 +174,203 @@ function PaymentForm() {
   }
 
   return (
-    <div className="w-full max-w-3xl mx-auto px-4 py-8">
-      <div className="bg-white rounded-xl shadow-lg p-8 md:p-10">
-        {/* Header */}
-        <div className="mb-8 border-b pb-8">
-          <div className="flex items-center justify-between mb-4">
-            <h1 className="text-3xl font-bold text-gray-900">Secure Checkout</h1>
-            <div className="flex items-baseline">
-              <span className="text-4xl font-bold text-blue-600">$125</span>
-              <span className="text-gray-500 ml-1">.00 USD</span>
-            </div>
-          </div>
-          <p className="text-gray-600">N0Render Smart Box</p>
+    <div className="stripeCheckout">
+      <div className="stripeCheckoutHeader">
+        <div>
+          <span className="stripeCheckoutLabel">Checkout</span>
+          <h2>Secure Payment</h2>
+          <p>N0Render Smart Box</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          {/* Contact Information */}
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="John Doe"
-                  disabled={loading}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
-                  required
-                />
-              </div>
+        <div className="stripeCheckoutAmount">
+          <strong>$125</strong>
+          <span>.00 USD</span>
+        </div>
+      </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="john@example.com"
-                  disabled={loading}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="mt-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                placeholder="+1 (555) 000-0000"
-                disabled={loading}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
-              />
-            </div>
+      <form onSubmit={handleSubmit} className="stripeCheckoutForm">
+        <section className="stripeSection">
+          <div className="stripeSectionHeader">
+            <span>01</span>
+            <h3>Contact Information</h3>
           </div>
 
-          {/* Billing Address */}
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Billing Address</h2>
-
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Street Address *
-              </label>
+          <div className="stripeGrid stripeGridTwo">
+            <div className="stripeField">
+              <label>Full Name *</label>
               <input
                 type="text"
-                name="address"
-                value={form.address}
+                name="name"
+                value={form.name}
                 onChange={handleChange}
-                placeholder="123 Main Street"
+                placeholder="John Doe"
                 disabled={loading}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
                 required
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  City *
-                </label>
-                <input
-                  type="text"
-                  name="city"
-                  value={form.city}
-                  onChange={handleChange}
-                  placeholder="New York"
-                  disabled={loading}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  State / Province *
-                </label>
-                <input
-                  type="text"
-                  name="state"
-                  value={form.state}
-                  onChange={handleChange}
-                  placeholder="NY"
-                  disabled={loading}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Postal Code *
-                </label>
-                <input
-                  type="text"
-                  name="postalCode"
-                  value={form.postalCode}
-                  onChange={handleChange}
-                  placeholder="10001"
-                  disabled={loading}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Country *
-                </label>
-                <select
-                  name="country"
-                  value={form.country}
-                  onChange={handleChange}
-                  disabled={loading}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-50 transition"
-                  required
-                >
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="GB">United Kingdom</option>
-                  <option value="AU">Australia</option>
-                  <option value="DE">Germany</option>
-                  <option value="FR">France</option>
-                  <option value="JP">Japan</option>
-                  <option value="IN">India</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          {/* Payment Method */}
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Payment Method</h2>
-            <div className="p-4 border border-gray-300 rounded-lg bg-gray-50">
-              <CardElement
-                options={{
-                  style: {
-                    base: {
-                      fontSize: '16px',
-                      color: '#1f2937',
-                      fontFamily: 'system-ui, -apple-system, sans-serif',
-                      '::placeholder': {
-                        color: '#9ca3af',
-                      },
-                    },
-                    invalid: {
-                      color: '#ef4444',
-                    },
-                  },
-                }}
+            <div className="stripeField">
+              <label>Email *</label>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                placeholder="john@example.com"
+                disabled={loading}
+                required
               />
             </div>
-            <p className="text-xs text-gray-500 mt-2">
-              Secure card processing by Stripe
-            </p>
           </div>
 
-          {/* Error Message */}
-          {error && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-700 text-sm font-medium">{error}</p>
+          <div className="stripeField">
+            <label>Phone Number</label>
+            <input
+              type="tel"
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="+1 (555) 000-0000"
+              disabled={loading}
+            />
+          </div>
+        </section>
+
+        <section className="stripeSection">
+          <div className="stripeSectionHeader">
+            <span>02</span>
+            <h3>Billing Address</h3>
+          </div>
+
+          <div className="stripeField">
+            <label>Street Address *</label>
+            <input
+              type="text"
+              name="address"
+              value={form.address}
+              onChange={handleChange}
+              placeholder="123 Main Street"
+              disabled={loading}
+              required
+            />
+          </div>
+
+          <div className="stripeGrid stripeGridTwo">
+            <div className="stripeField">
+              <label>City *</label>
+              <input
+                type="text"
+                name="city"
+                value={form.city}
+                onChange={handleChange}
+                placeholder="New York"
+                disabled={loading}
+                required
+              />
             </div>
-          )}
 
-          {/* Submit Button */}
-          <button
-            type="submit"
-            disabled={loading || !stripe || !elements}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white font-semibold py-4 px-6 rounded-lg transition duration-200 text-lg flex items-center justify-center gap-2 shadow-md"
-          >
-            {loading ? (
-              <>
-                <span className="inline-block animate-spin">⟳</span>
-                Processing Payment...
-              </>
-            ) : (
-              'Pay $125.00'
-            )}
-          </button>
+            <div className="stripeField">
+              <label>State / Province *</label>
+              <input
+                type="text"
+                name="state"
+                value={form.state}
+                onChange={handleChange}
+                placeholder="NY"
+                disabled={loading}
+                required
+              />
+            </div>
+          </div>
 
-          {/* Security Note */}
-          <p className="text-xs text-gray-500 text-center mt-6">
-            Your payment information is secure and encrypted. We never store your card details.
+          <div className="stripeGrid stripeGridTwo">
+            <div className="stripeField">
+              <label>Postal Code *</label>
+              <input
+                type="text"
+                name="postalCode"
+                value={form.postalCode}
+                onChange={handleChange}
+                placeholder="10001"
+                disabled={loading}
+                required
+              />
+            </div>
+
+            <div className="stripeField">
+              <label>Country *</label>
+              <select
+                name="country"
+                value={form.country}
+                onChange={handleChange}
+                disabled={loading}
+                required
+              >
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="GB">United Kingdom</option>
+                <option value="AU">Australia</option>
+                <option value="DE">Germany</option>
+                <option value="FR">France</option>
+                <option value="JP">Japan</option>
+                <option value="IN">India</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <section className="stripeSection">
+          <div className="stripeSectionHeader">
+            <span>03</span>
+            <h3>Payment Method</h3>
+          </div>
+
+          <div className="stripeCardElement">
+            <CardElement
+              options={{
+                style: {
+                  base: {
+                    fontSize: '16px',
+                    color: '#0f172a',
+                    fontFamily: 'Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
+                    '::placeholder': {
+                      color: '#94a3b8',
+                    },
+                  },
+                  invalid: {
+                    color: '#dc2626',
+                  },
+                },
+              }}
+            />
+          </div>
+
+          <p className="stripeSecurityText">
+            Secure card processing by Stripe. We never store your card details.
           </p>
-        </form>
-      </div>
+        </section>
+
+        {error && (
+          <div className="stripeError">
+            {error}
+          </div>
+        )}
+
+        <button
+          type="submit"
+          disabled={loading || !stripe || !elements}
+          className="stripeSubmitButton"
+        >
+          {loading ? (
+            <>
+              <span className="stripeSpinner" />
+              Processing Payment...
+            </>
+          ) : (
+            'Pay $125.00'
+          )}
+        </button>
+      </form>
     </div>
   )
 }

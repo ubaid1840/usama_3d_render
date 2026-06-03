@@ -9,10 +9,13 @@
 		"@splinetool/react-spline": "^4.1.0",
 		"@stripe/react-stripe-js": "^6.5.0",
 		"@stripe/stripe-js": "^9.7.0",
+		"axios": "^1.17.0",
+		"firebase": "^12.14.0",
 		"next": "^16.2.7",
 		"nodemailer": "^8.0.10",
 		"react": "^19.2.7",
 		"react-dom": "^19.2.7",
+		"react-google-recaptcha-v3": "^1.11.0",
 		"remixicon": "^4.9.1",
 		"stripe": "^22.2.0"
 	},

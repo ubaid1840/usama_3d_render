@@ -7,6 +7,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from '@/lib/firebase'
+import ReCAPTCHA from "react-google-recaptcha";
 
 
 
@@ -26,6 +27,7 @@ type FormData = {
 }
 
 function PaymentForm() {
+   const [captchaToken, setCaptchaToken] = useState("")
   const { executeRecaptcha } = useGoogleReCaptcha();
   const stripe = useStripe()
   const elements = useElements()
@@ -172,6 +174,23 @@ const captchaToken = await executeRecaptcha("payment");
       setLoading(false)
     }
   }
+
+   function onSuccess(token: string) {
+    setCaptchaToken(token)
+  }
+
+  const validateForm = () => {
+  return (
+    form.name.trim() !== '' &&
+    form.email.trim() !== '' &&
+    form.phone.trim() !== '' &&
+    form.address.trim() !== '' &&
+    form.city.trim() !== '' &&
+    form.state.trim() !== '' &&
+    form.postalCode.trim() !== '' &&
+    form.country.trim() !== ''
+  )
+}
 
   return (
     <div className="stripeCheckout">
@@ -356,9 +375,14 @@ const captchaToken = await executeRecaptcha("payment");
           </div>
         )}
 
+         <ReCAPTCHA
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                onChange={onSuccess}
+              />
+
         <button
           type="submit"
-          disabled={loading || !stripe || !elements}
+          disabled={loading || !stripe || !elements || !captchaToken || !validateForm()}
           className="stripeSubmitButton"
         >
           {loading ? (

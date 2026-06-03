@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Montserrat } from "next/font/google"
 import "./globals.css"
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3"
+import Providers from "@/components/providers"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -23,12 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={montserrat.variable}>
       <body className="bg-[#0B1020]">
-         <GoogleReCaptchaProvider
-          reCaptchaKey={
-            process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!
-          }
-        >{children}
-        </GoogleReCaptchaProvider>
+        
+        <Providers>
+        {children}
+        </Providers>
         </body>
     </html>
   )

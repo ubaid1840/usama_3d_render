@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useCallback, type FormEvent } from "react"
+import { useCallback, useState, type FormEvent } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle")
-
-    const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
+  const [captchaToken, setCaptchaToken] = useState("")
+  const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setStatus("sending")
 
@@ -43,6 +44,10 @@ export function ContactForm() {
     }
   }, [])
 
+  function onSuccess(token: string) {
+    setCaptchaToken(token)
+  }
+
   return (
     <form className="contact-form glass" onSubmit={handleSubmit}>
       <div className="form-group">
@@ -57,21 +62,32 @@ export function ContactForm() {
         <label htmlFor="message">Message</label>
         <textarea id="message" rows={5} placeholder="How can we help you?" required></textarea>
       </div>
+
+      <ReCAPTCHA
+        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+        onChange={onSuccess}
+      />
+
       <button
         type="submit"
         className="btn btn-primary submit-btn"
         style={
           status === "sent"
             ? {
-                background: "#28a745",
-                boxShadow: "0 4px 15px rgba(40, 167, 69, 0.4)",
-              }
+              background: "#28a745",
+              boxShadow: "0 4px 15px rgba(40, 167, 69, 0.4)",
+            }
             : {}
         }
-        disabled={status === "sending"}
+        disabled={status === "sending" || !captchaToken}
       >
-        {status === "idle" && "Send Message"}
+        {status === "idle" &&
+          (!captchaToken
+            ? "Complete Captcha First"
+            : "Send Message")}
+
         {status === "sending" && "Sending..."}
+
         {status === "sent" && "Message Sent!"}
       </button>
     </form>

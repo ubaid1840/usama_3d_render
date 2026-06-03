@@ -48,9 +48,7 @@ export async function POST(req: Request) {
       </div>
     `
 
-    console.log("HTML Message:", htmlMessage)
-
-    await sendSingleEmail(htmlMessage, typeMessage, "usamanazir1@gmail.com")
+    await sendSingleEmail(htmlMessage, typeMessage, "tech@n0render.com")
 
     return NextResponse.json({
       success: true,

@@ -1063,3 +1063,40 @@ footer {
     transform: rotate(3deg) translateX(10%);
   }
 }
+
+.payment-box {
+  max-width: 520px;
+  margin: 60px auto;
+  padding: 28px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
+}
+
+.payment-box h1 {
+  margin-bottom: 10px;
+}
+
+.payment-box input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.payment-box button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #111;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.payment-box button:disabled {
+  opacity: 0.6;
+}

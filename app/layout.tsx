@@ -23,6 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={montserrat.variable}>
+       <link rel="icon" href="/favicon.ico" sizes="any" />
       <body className="bg-[#0B1020]">
         
         <Providers>

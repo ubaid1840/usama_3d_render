@@ -1,0 +1,150 @@
+.login-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(37, 99, 235, 0.22), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.12), transparent 35%),
+    #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.login-shell {
+  width: 100%;
+  max-width: 980px;
+  display: grid;
+  grid-template-columns: 1fr 430px;
+  gap: 32px;
+  align-items: center;
+}
+
+.login-brand {
+  color: #ffffff;
+}
+
+.brand-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  background: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 22px;
+}
+
+.login-brand h2 {
+  font-size: 42px;
+  margin: 0 0 12px;
+}
+
+.login-brand p {
+  color: #94a3b8;
+  font-size: 17px;
+  margin: 0;
+}
+
+.login-card {
+  background: rgba(17, 24, 39, 0.88);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  backdrop-filter: blur(18px);
+  padding: 34px;
+  border-radius: 22px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+.login-header h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 30px;
+}
+
+.login-header p {
+  margin: 8px 0 26px;
+  color: #94a3b8;
+}
+
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  display: block;
+  color: #cbd5e1;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.input-group input {
+  width: 100%;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 0 14px;
+  font-size: 15px;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+.input-group input::placeholder {
+  color: #64748b;
+}
+
+.login-btn {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.login-btn:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.login-btn:disabled {
+  background: #475569;
+  cursor: not-allowed;
+}
+
+.error-box {
+  background: rgba(239, 68, 68, 0.14);
+  border: 1px solid rgba(239, 68, 68, 0.28);
+  color: #fca5a5;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 850px) {
+  .login-shell {
+    grid-template-columns: 1fr;
+    max-width: 460px;
+  }
+
+  .login-brand {
+    text-align: center;
+  }
+
+  .brand-icon {
+    margin: 0 auto 18px;
+  }
+
+  .login-brand h2 {
+    font-size: 32px;
+  }
+}

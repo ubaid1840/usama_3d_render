@@ -5,7 +5,7 @@ import dynamic from "next/dynamic"
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
-  loading: () => <div className="w-full h-full" />,
+  loading: () => <p>Loading object...</p>
 })
 
 export function SplineScene() {

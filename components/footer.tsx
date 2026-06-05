@@ -29,13 +29,13 @@ export function Footer({ minimal = false }: FooterProps) {
         </div>
         <div className="footer-right">
           <div className="social-icons">
-            <a href="#">
+            <a href="https://www.youtube.com/@Global-Girls-Network">
               <i className="ri-youtube-fill"></i>
             </a>
-            <a href="#">
+            <a href="https://www.facebook.com/N0RENDER">
               <i className="ri-facebook-circle-fill"></i>
             </a>
-            <a href="#">
+            <a href="https://www.instagram.com/global_girls_network/">
               <i className="ri-instagram-line"></i>
             </a>
           </div>

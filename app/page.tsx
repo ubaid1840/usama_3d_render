@@ -46,8 +46,8 @@ export default function HomePage() {
             </div>
           </div>
           <div className="hero-showcase" id="spline-container">
-            <div className="glow-sphere"></div>
             <SplineScene />
+            
           </div>
         </section>
 

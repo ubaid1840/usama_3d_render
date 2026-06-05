@@ -7,6 +7,8 @@ export async function POST(req: Request) {
 
     const { name, email, message } = body
 
+    console.log(body)
+
     const typeMessage = "New Contact Form Submission"
 
     const htmlMessage = `
